@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Page Title</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>To Exhange or Not to Exchange</h1>
+<p>random paragraph describing what we do.</p>
+
+
+<!--
+<div class="dropdown" style="float:left;">
+  <button class="dropbtn">Exchange From</button>
+  <div class="dropdown-content" style="left:0;">
+  <a href="#">CAD</a>
+  <a href="#">EUR</a>
+  <a href="#">INR</a>
+  <a href="#">USD</a>
+  <a href="#">JPY</a>
+  <a href="#">CNY</a>
+  </div>
+</div>
+-->
+
+<!--
+<div class="dropdown" style="float:centered;">
+  <button class="dropbtn">Exchange To</button>
+  <div class="dropdown-content">
+  <a href="#">CAD</a>
+  <a href="#">EUR</a>
+  <a href="#">INR</a>
+  <a href="#">USD</a>
+  <a href="#">JPY</a>
+  <a href="#">CNY</a>
+  </div>
+</div>
+-->
+
+<form id="myForm" method="post">
+
+<select id="ExchangeFrom" name="ExchangeFrom" style = "float:left;">
+  <option value="CAD">CAD</option>
+  <option value="EUR">EUR</option>
+  <option value="INR">INR</option>
+  <option value="USD">USD</option>
+  <option value="JPY">JPY</option>
+  <option value="CNY">CNY</option>
+</select>
+
+<select id="ExchangeTo" name="ExchangeTo" style = "float:center;">
+  <option value="CAD">CAD</option>
+  <option value="EUR">EUR</option>
+  <option value="INR">INR</option>
+  <option value="USD">USD</option>
+  <option value="JPY">JPY</option>
+  <option value="CNY">CNY</option>
+</select>
+
+
+
+<br />
+Amount:<br />
+<input type="text" id="Amount" name="Amount" />
+<br /><br />
+<input type="button" id="enter" Value="Enter" />
+<br /><br />
+</form>
+<div id="result"></div>
+<script>
+    $(document).ready(function(){
+        $("#enter").click(function(event){
+            event.preventDefault();
+            //console.log("hello");
+            var Amount = parseFloat($('#Amount').val());
+            var From = $('#ExchangeFrom').val();
+            var To = $('#ExchangeTo').val();
+            $.ajax({
+                method: 'post',
+                url: '/test',
+                data: JSON.stringify({ From: From, To: To, Amount: Amount}),
+                contentType: 'application/json',
+                success: function(server_response) {
+                    $('#result').html(server_response);
+                }
+
+            })
+        });
+    });
+</script>
+
+</body>
+</html>
